@@ -1,0 +1,9 @@
+/build
+/substratum.iml
+.idea/
+build/
+local.properties
+.gradle/
+gradle/
+gradlew
+gradlew.bat
