@@ -67,6 +67,9 @@ class ThreadExecutor private constructor() : Executor {
 
         val INSTANCE: Executor?
             get() {
+                if (_threadExecutor == null) {
+                    _threadExecutor = ThreadExecutor()
+                }
                 return _threadExecutor
             }
     }
