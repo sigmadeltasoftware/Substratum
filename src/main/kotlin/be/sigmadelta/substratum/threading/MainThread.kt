@@ -42,6 +42,9 @@ class MainThread private constructor() : IMainThread {
 
         val INSTANCE: IMainThread
             get() {
+                if (_mainThread == null) {
+                    _mainThread = MainThread()
+                }
                 return _mainThread
             }
     }

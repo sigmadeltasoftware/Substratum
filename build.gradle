@@ -1,6 +1,29 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
+ext {
+    bintrayRepo = 'Substratum'
+    bintrayName = 'Substratum'
+
+    publishedGroupId = 'be.sigmadelta'
+    libraryName = 'Substratum'
+    artifact = 'Substratum'
+
+    libraryDescription = 'Android MVP Architecture Library'
+
+    siteUrl = 'https://github.com/sigmadeltasoftware/Substratum'
+    gitUrl = 'https://github.com/sigmadeltasoftware/Substratum.git'
+
+    libraryVersion = '0.1.1'
+
+    developerId = 'sigmadeltasoftware'
+    developerName = 'Bojan Belic'
+    developerEmail = 'belic_bojan@sigmadelta.be'
+
+    licenseName = 'MIT License'
+    licenseUrl = 'https://github.com/sigmadeltasoftware/Substratum/blob/master/LICENSE.txt'
+    allLicenses = ["MIT"]
+}
 android {
     compileSdkVersion 27
 
@@ -29,12 +52,13 @@ buildscript {
     repositories {
         jcenter{ url "http://jcenter.bintray.com/" }
         maven { url 'http://maven.google.com'}
-        mavenCentral()
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
     }
 }
 
@@ -48,3 +72,6 @@ allprojects {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
