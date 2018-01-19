@@ -42,8 +42,10 @@ class ThreadExecutor private constructor() : Executor {
 
     override fun execute(useCase: AbstractUseCase) {
         _threadPoolExecutor.submit {
-            useCase.run()
-            useCase.onFinished()
+            useCase.apply {
+                run()
+                onFinished()
+            }
         }
     }
 
