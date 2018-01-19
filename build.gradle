@@ -24,6 +24,7 @@ ext {
     licenseUrl = 'https://github.com/sigmadeltasoftware/Substratum/blob/master/LICENSE.txt'
     allLicenses = ["MIT"]
 }
+
 android {
     compileSdkVersion 27
 
