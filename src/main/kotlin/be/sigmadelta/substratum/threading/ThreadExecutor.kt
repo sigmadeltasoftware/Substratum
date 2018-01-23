@@ -59,7 +59,7 @@ class ThreadExecutor private constructor() : Executor {
 
     companion object {
 
-        @Volatile private var _threadExecutor: ThreadExecutor = ThreadExecutor()
+        @Volatile private var _threadExecutor: ThreadExecutor? = null
 
         private val CORE_POOL_SIZE = 4
         private val MAX_POOL_SIZE = 8

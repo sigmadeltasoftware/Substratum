@@ -38,14 +38,14 @@ class MainThread private constructor() : IMainThread {
 
     companion object {
 
-        private var _mainThread: IMainThread = MainThread()
+        private var _mainThread: IMainThread? = null
 
         val INSTANCE: IMainThread
             get() {
                 if (_mainThread == null) {
                     _mainThread = MainThread()
                 }
-                return _mainThread
+                return _mainThread as IMainThread
             }
     }
 }
