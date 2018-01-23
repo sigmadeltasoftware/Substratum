@@ -7,25 +7,47 @@
     tools:context="be.sigmadelta.substratumdemo.MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/main_activity_result_txt"
         android:layout_width="wrap_content"
-        android:layout_height="17dp"
-        android:layout_marginTop="104dp"
-        android:text="Hello World!"
+        android:layout_height="0dp"
+        android:layout_marginTop="76dp"
+        android:text="Placeholder text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_employee_spinner" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/main_activity_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="212dp"
-        android:text="Button"
+        android:text="Assign"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_result_txt" />
+
+    <Spinner
+        android:id="@+id/main_activity_item_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/main_activity_employee_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_item_spinner" />
 
 </android.support.constraint.ConstraintLayout>

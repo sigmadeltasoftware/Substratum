@@ -9,4 +9,4 @@ import be.sigmadelta.substratumdemo.domain.util.error.Error
  */
 data class Status (val hasSucceeded: Boolean,
                    val successMsg: String,
-                   val error: Error)
+                   val error: Error?)

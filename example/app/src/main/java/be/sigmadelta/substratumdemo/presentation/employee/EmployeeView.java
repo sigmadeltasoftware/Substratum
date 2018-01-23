@@ -10,7 +10,7 @@ import be.sigmadelta.substratumdemo.domain.util.error.Error;
  * Company: Sigma Delta Software Solutions
  */
 
-interface EmployeeView {
+public interface EmployeeView {
     void showItemAssignedToEmployee(Item item, Employee employee, String msg);
     void showFailedToAssignItemToEmployee(Item item, Employee employee, Error error);
 }
