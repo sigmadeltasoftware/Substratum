@@ -33,12 +33,23 @@ import be.sigmadelta.substratum.usecase.AbstractUseCase
 
 class ThreadExecutor private constructor() : Executor {
 
-    private var _threadPoolExecutor: ThreadPoolExecutor = ThreadPoolExecutor(
-                                                        CORE_POOL_SIZE,
-                                                        MAX_POOL_SIZE,
-                                                        KEEP_ALIVE_TIME,
-                                                        TIME_UNIT,
-                                                        WORK_QUEUE)
+    private var _threadPoolExecutor: ThreadPoolExecutor
+    private val CORE_POOL_SIZE = 4
+    private val MAX_POOL_SIZE = 8
+    private val KEEP_ALIVE_TIME = 90L
+    private val TIME_UNIT = TimeUnit.SECONDS
+    private val WORK_QUEUE = LinkedBlockingQueue<Runnable>()
+
+    private object Holder {val INSTANCE: Executor = ThreadExecutor()}
+
+    init {
+       _threadPoolExecutor = ThreadPoolExecutor(
+                CORE_POOL_SIZE,
+                MAX_POOL_SIZE,
+                KEEP_ALIVE_TIME,
+                TIME_UNIT,
+                WORK_QUEUE)
+    }
 
     override fun execute(useCase: AbstractUseCase) {
         _threadPoolExecutor.submit {
@@ -58,21 +69,6 @@ class ThreadExecutor private constructor() : Executor {
     }
 
     companion object {
-
-        @Volatile private var _threadExecutor: ThreadExecutor? = null
-
-        private val CORE_POOL_SIZE = 4
-        private val MAX_POOL_SIZE = 8
-        private val KEEP_ALIVE_TIME = 90L
-        private val TIME_UNIT = TimeUnit.SECONDS
-        private val WORK_QUEUE = LinkedBlockingQueue<Runnable>()
-
-        val INSTANCE: Executor?
-            get() {
-                if (_threadExecutor == null) {
-                    _threadExecutor = ThreadExecutor()
-                }
-                return _threadExecutor
-            }
+        val INSTANCE: Executor by lazy { Holder.INSTANCE }
     }
 }
