@@ -1,6 +1,7 @@
-[ ![Download](https://api.bintray.com/packages/sigmadeltasoftware/Substratum/Substratum/images/download.svg) ](https://bintray.com/sigmadeltasoftware/Substratum/Substratum/_latestVersion)
-
 # Substratum
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+[![Download](https://api.bintray.com/packages/sigmadeltasoftware/Substratum/Substratum/images/download.svg) ](https://bintray.com/sigmadeltasoftware/Substratum/Substratum/_latestVersion)
+
 Kotlin-based lightweight Android MVP architecture-foundation, enforcing clean, maintainable and testable code. Made in context of [the following article](https://medium.com/@bojanbelic/iaa-2-touching-base-with-architecture-basics-mvp-clean-architectures-package-by-feature-1f2ee92ee4e8).
 
 ### Installing
@@ -9,7 +10,7 @@ Simply add the project to your build.gradle. Replace 'x.x.x' by latest version w
 implementation 'be.sigmadelta:Substratum:x.x.x'
 ```
 ### Example application
-__====> In Progress__
+An example application can be found in the 'example' directory.
 
 ### To Be Done
 - [ ] Create Sample application
