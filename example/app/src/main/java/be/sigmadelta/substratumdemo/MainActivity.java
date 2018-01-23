@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 /**
  * Creator: Bojan Belic
  * Date:    23/01/18
- * Company: Colruyt Group
+ * Company: Sigma Delta Software Solutions
  */
 
 public class MainActivity extends AppCompatActivity {
