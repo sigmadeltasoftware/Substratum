@@ -14,9 +14,6 @@ import be.sigmadelta.substratumdemo.domain.util.error.Error;
 
 public interface IEmployeeUseCase {
 
-    int ERROR_FAILED_TO_RETRIEVE_SPINNER_DATA = -1;
-    int ERROR_SPINNER_DATA_EMPTY = -2;
-
     interface AssignItemToEmployeeCallback {
         void onItemAssignedToEmployee(Item item, Employee employee, String msg);
         void onFailedToAssignItemToEmployee(Item item, Employee employee, Error error);

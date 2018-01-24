@@ -2,6 +2,7 @@ package be.sigmadelta.substratumdemo.domain.employee;
 
 import be.sigmadelta.substratum.threading.Executor;
 import be.sigmadelta.substratum.usecase.AbstractUseCase;
+import be.sigmadelta.substratumdemo.domain.employee.models.EmployeeUseCaseErrors;
 import be.sigmadelta.substratumdemo.domain.employee.models.SpinnerDataReturn;
 import be.sigmadelta.substratumdemo.domain.util.error.Error;
 import be.sigmadelta.substratumdemo.domain.util.status.Status;
@@ -36,12 +37,14 @@ public class RetrieveSpinnerDataUseCase extends AbstractUseCase implements IEmpl
                         "Successfully retrieved data");
             } else {
                 _callback.onFailedToRetrieveSpinnerData(
-                        new Error("Spinner data is empty!", ERROR_FAILED_TO_RETRIEVE_SPINNER_DATA)
+                        new Error("Spinner data is empty!",
+                                EmployeeUseCaseErrors.ERROR_FAILED_TO_RETRIEVE_SPINNER_DATA.getErrorCode())
                 );
             }
         } else {
             _callback.onFailedToRetrieveSpinnerData(
-                    new Error("Failed to retrieve spinner data", ERROR_SPINNER_DATA_EMPTY));
+                    new Error("Failed to retrieve spinner data",
+                            EmployeeUseCaseErrors.ERROR_SPINNER_DATA_EMPTY.getErrorCode()));
         }
     }
 }

@@ -1,10 +1,12 @@
 package be.sigmadelta.substratumdemo.presentation.employee;
 
 import java.util.List;
+import java.util.concurrent.RejectedExecutionException;
 
 import be.sigmadelta.substratum.presenter.AbstractPresenter;
 import be.sigmadelta.substratum.threading.Executor;
 import be.sigmadelta.substratum.threading.IMainThread;
+import be.sigmadelta.substratum.usecase.AbstractUseCase;
 import be.sigmadelta.substratum.usecase.IUseCaseFactory;
 import be.sigmadelta.substratumdemo.domain.employee.IEmployeeRepository;
 import be.sigmadelta.substratumdemo.domain.employee.AssignItemToEmployeeUseCase;
@@ -14,6 +16,7 @@ import be.sigmadelta.substratumdemo.domain.employee.IEmployeeUseCase;
 import be.sigmadelta.substratumdemo.domain.employee.RetrieveSpinnerDataUseCase;
 import be.sigmadelta.substratumdemo.domain.item.Item;
 import be.sigmadelta.substratumdemo.domain.util.error.Error;
+import timber.log.Timber;
 
 /**
  * Creator: Bojan Belic
@@ -36,16 +39,16 @@ public class EmployeePresenter extends AbstractPresenter implements IEmployeePre
 
     @Override
     public void assignItemToEmployee(Item item, Employee employee) {
-        getUseCaseFactory()
+        executeUseCase(getUseCaseFactory()
                 .getUseCaseInstance(new AssignItemToEmployeeUseCase(getExecutor(), this, _repo, item, employee))
-                .execute();
+        );
     }
 
     @Override
     public void retrieveSpinnerData() {
-        getUseCaseFactory()
+        executeUseCase(getUseCaseFactory()
                 .getUseCaseInstance(new RetrieveSpinnerDataUseCase(getExecutor(), this, _repo))
-                .execute();
+        );
     }
 
     @Override
@@ -66,5 +69,19 @@ public class EmployeePresenter extends AbstractPresenter implements IEmployeePre
     @Override
     public void onFailedToRetrieveSpinnerData(Error error) {
         getMainThread().post(() -> _view.showFailedToRetrieveSpinnerData(error.getMsg()));
+    }
+
+    private void executeUseCase(AbstractUseCase useCase) {
+        try {
+            useCase.execute();
+        } catch (RejectedExecutionException e) {
+            // This exception can be thrown here when the number of launched usecases exceeds the
+            // MAX_POOL_SIZE specified for Substratum's ThreadExecutor. Please see the ThreadPoolExecutor's
+            // (java.util.concurrent) documentation for more info.
+            Timber.e(e);
+            final String errorMsg = "Failed to execute " + useCase.getClass().getName() + "!\n"
+                    + "Please try again.";
+            getMainThread().post(() -> _view.showFailedToExecuteUseCase(errorMsg));
+        }
     }
 }

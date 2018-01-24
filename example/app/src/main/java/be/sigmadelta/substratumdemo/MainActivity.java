@@ -54,6 +54,11 @@ public class MainActivity extends AppCompatActivity implements EmployeeView {
     }
 
     @Override
+    public void showFailedToExecuteUseCase(String errorMsg) {
+        Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void showItemAssignedToEmployee(Item item, Employee employee, String msg) {
         _txtResult.setText(msg);
     }
@@ -72,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements EmployeeView {
         _currentlySelectedEmployee = employeeList.get(0);
 
         itemSpinner.setAdapter(
-                new ArrayAdapter<Item>(this, android.R.layout.simple_spinner_dropdown_item, itemList));
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemList));
 
         itemSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -87,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements EmployeeView {
         });
 
         employeeSpinner.setAdapter(
-                new ArrayAdapter<Employee>(this, android.R.layout.simple_spinner_dropdown_item, employeeList)
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, employeeList)
         );
 
         employeeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
