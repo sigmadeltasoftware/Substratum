@@ -1,7 +1,10 @@
 package be.sigmadelta.substratumdemo.domain.employee;
 
+import be.sigmadelta.substratumdemo.domain.employee.models.Employee;
+import be.sigmadelta.substratumdemo.domain.employee.models.SpinnerDataReturn;
 import be.sigmadelta.substratumdemo.domain.item.Item;
 import be.sigmadelta.substratumdemo.domain.util.status.Status;
+import be.sigmadelta.substratumdemo.domain.util.status.StatusPair;
 
 /**
  * Creator: Bojan Belic
@@ -11,4 +14,5 @@ import be.sigmadelta.substratumdemo.domain.util.status.Status;
 
 public interface IEmployeeRepository {
     Status assignItemToEmployee(Item item, Employee employee);
+    StatusPair<SpinnerDataReturn> retrieveSpinnerData();
 }

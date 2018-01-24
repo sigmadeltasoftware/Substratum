@@ -2,6 +2,7 @@ package be.sigmadelta.substratumdemo.domain.employee;
 
 import be.sigmadelta.substratum.threading.Executor;
 import be.sigmadelta.substratum.usecase.AbstractUseCase;
+import be.sigmadelta.substratumdemo.domain.employee.models.Employee;
 import be.sigmadelta.substratumdemo.domain.item.Item;
 import be.sigmadelta.substratumdemo.domain.util.status.Status;
 

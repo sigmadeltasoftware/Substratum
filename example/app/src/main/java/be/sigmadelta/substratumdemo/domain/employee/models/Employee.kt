@@ -1,4 +1,4 @@
-package be.sigmadelta.substratumdemo.domain.employee
+package be.sigmadelta.substratumdemo.domain.employee.models
 
 /**
  * Creator: Bojan Belic

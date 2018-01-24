@@ -1,5 +1,6 @@
 package be.sigmadelta.substratumdemo.domain.employee;
 
+import be.sigmadelta.substratumdemo.domain.employee.models.Employee;
 import be.sigmadelta.substratumdemo.domain.item.Item;
 
 /**
@@ -10,4 +11,5 @@ import be.sigmadelta.substratumdemo.domain.item.Item;
 
 public interface IEmployeePresenter {
     void assignItemToEmployee(Item item, Employee employee);
+    void retrieveSpinnerData();
 }

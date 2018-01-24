@@ -7,15 +7,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.Arrays;
 import java.util.List;
 
 import be.sigmadelta.substratum.threading.MainThread;
 import be.sigmadelta.substratum.threading.ThreadExecutor;
 import be.sigmadelta.substratum.usecase.UseCaseFactory;
 import be.sigmadelta.substratumdemo.data.employee.EmployeeRepository;
-import be.sigmadelta.substratumdemo.domain.employee.Employee;
+import be.sigmadelta.substratumdemo.domain.employee.models.Employee;
 import be.sigmadelta.substratumdemo.domain.employee.IEmployeePresenter;
 import be.sigmadelta.substratumdemo.domain.item.Item;
 import be.sigmadelta.substratumdemo.domain.util.error.Error;
@@ -30,20 +30,9 @@ import be.sigmadelta.substratumdemo.presentation.employee.EmployeeView;
 
 public class MainActivity extends AppCompatActivity implements EmployeeView {
 
-    private final List<Item> _itemList =  Arrays.asList(
-            new Item("Stapler"),
-            new Item("Pen"),
-            new Item("Keyboard")
-    );
-
-    private final List<Employee> _employeeList = Arrays.asList(
-            new Employee("John", "Accountant"),
-            new Employee("Mary", "Secretary"),
-            new Employee("Bob", "Android developer")
-    );
-
-    private Item _currentlySelectedItem = _itemList.get(0);
-    private Employee _currentlySelectedEmployee = _employeeList.get(0);
+    private Item _currentlySelectedItem;
+    private Employee _currentlySelectedEmployee;
+    private IEmployeePresenter _employeePresenter;
 
     private TextView _txtResult;
 
@@ -53,51 +42,15 @@ public class MainActivity extends AppCompatActivity implements EmployeeView {
         setContentView(R.layout.main_activity);
 
         _txtResult = findViewById(R.id.main_activity_result_txt);
-        final Spinner itemSpinner = findViewById(R.id.main_activity_item_spinner);
-        final Spinner employeeSpinner = findViewById(R.id.main_activity_employee_spinner);
-        ThreadExecutor.Companion.getINSTANCE();
-        MainThread.Companion.getINSTANCE();
 
-        IEmployeePresenter presenter = new EmployeePresenter(ThreadExecutor.Companion.getINSTANCE(),
+        _employeePresenter = new EmployeePresenter(ThreadExecutor.Companion.getINSTANCE(),
                 MainThread.Companion.getINSTANCE(),
                 new UseCaseFactory(),
                 this,
                 new EmployeeRepository());
 
-        itemSpinner.setAdapter(
-                new ArrayAdapter<Item>(this, android.R.layout.simple_spinner_dropdown_item, _itemList));
+        _employeePresenter.retrieveSpinnerData();
 
-        itemSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                _currentlySelectedItem = _itemList.get(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        employeeSpinner.setAdapter(
-                new ArrayAdapter<Employee>(this, android.R.layout.simple_spinner_dropdown_item, _employeeList)
-        );
-
-        employeeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                _currentlySelectedEmployee = _employeeList.get(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        findViewById(R.id.main_activity_btn).setOnClickListener(
-                (v) -> presenter.assignItemToEmployee(_currentlySelectedItem, _currentlySelectedEmployee)
-        );
     }
 
     @Override
@@ -108,5 +61,55 @@ public class MainActivity extends AppCompatActivity implements EmployeeView {
     @Override
     public void showFailedToAssignItemToEmployee(Item item, Employee employee, Error error) {
         _txtResult.setText(error.getMsg());
+    }
+
+    @Override
+    public void showRetrievedSpinnerData(List<Item> itemList, List<Employee> employeeList, String msg) {
+        final Spinner itemSpinner = findViewById(R.id.main_activity_item_spinner);
+        final Spinner employeeSpinner = findViewById(R.id.main_activity_employee_spinner);
+
+        _currentlySelectedItem = itemList.get(0);
+        _currentlySelectedEmployee = employeeList.get(0);
+
+        itemSpinner.setAdapter(
+                new ArrayAdapter<Item>(this, android.R.layout.simple_spinner_dropdown_item, itemList));
+
+        itemSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                _currentlySelectedItem = itemList.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        employeeSpinner.setAdapter(
+                new ArrayAdapter<Employee>(this, android.R.layout.simple_spinner_dropdown_item, employeeList)
+        );
+
+        employeeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                _currentlySelectedEmployee = employeeList.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        findViewById(R.id.main_activity_btn).setOnClickListener(
+                (v) -> _employeePresenter.assignItemToEmployee(_currentlySelectedItem, _currentlySelectedEmployee)
+        );
+    }
+
+    @Override
+    public void showFailedToRetrieveSpinnerData(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        _txtResult.setText(msg);
     }
 }
