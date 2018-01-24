@@ -5,6 +5,9 @@ Kotlin-based lightweight Android MVP architecture-foundation, enforcing clean, m
 
 ![](https://cdn-images-1.medium.com/max/1600/1*H0KafhijuPhqgSJsdUn_8Q.png)
 
+### !NOTE
+This library is still in a very early & experimental stage, where the API will likely change quite a bit. If you're looking for a stable alternative, please look into [Mosby](https://github.com/sockeqwe/mosby). 
+
 ### Installing
 Simply add the project to your build.gradle. Replace 'x.x.x' by latest version which can be found at the top of the document.
 
