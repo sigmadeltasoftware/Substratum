@@ -32,20 +32,13 @@ class MainThread private constructor() : IMainThread {
 
     private val _handler: Handler = Handler(Looper.getMainLooper())
 
+    private object Holder {val INSTANCE: IMainThread = MainThread()}
+
     override fun post(runnable: Runnable) {
         _handler.post(runnable)
     }
 
     companion object {
-
-        private var _mainThread: IMainThread = MainThread()
-
-        val INSTANCE: IMainThread
-            get() {
-                if (_mainThread == null) {
-                    _mainThread = MainThread()
-                }
-                return _mainThread
-            }
+        val INSTANCE: IMainThread = Holder.INSTANCE
     }
 }

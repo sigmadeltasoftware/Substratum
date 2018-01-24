@@ -14,7 +14,7 @@ ext {
     siteUrl = 'https://github.com/sigmadeltasoftware/Substratum'
     gitUrl = 'https://github.com/sigmadeltasoftware/Substratum.git'
 
-    libraryVersion = '0.1.1'
+    libraryVersion = '0.1.3'
 
     developerId = 'sigmadeltasoftware'
     developerName = 'Bojan Belic'
